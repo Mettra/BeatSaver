@@ -6,9 +6,9 @@
     <meta name="viewport" content="width=1024">
 <!-- Latest compiled and minified CSS -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-<!-- Hacker Secret API https://beatsaver.com/api.php?mode=top&off=0 | https://beatsaver.com/api.php?mode=star&off=0 | https://beatsaver.com/api.php?mode=new&off=0 | https://beatsaver.com/api.php?mode=hashinfo&hash=d54026dbd90a7b92ee8966c96e3e68d9-->
-<!-- Votekey API curl -X POST -d "username=username&password=password" https://www.beatsaver.com/api.php?mode=votekey /// Then take that key and give it to // curl -vv "https://www.beatsaver.com/vote.php?id=$id&token=$token" -->
-<!-- leet hacker secret website github // patches welcome! // https://github.com/JRWR/BeatSaver -->
+
+<!-- For Dev information, please see the wiki https://wiki.beatsaver.com/index.php?title=BeatSaver -->
+
 <!-- Optional theme -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
 
@@ -31,10 +31,10 @@
             <li><a href="topdl.php">Top Downloads</a></li>
 	    <li><a href="topstar.php">Top Rated</a></li>
             <li><a href="browse.php">Newest</a></li>
-	    <li><a href="https://github.com/xyonico/BeatSaberSongInjector/releases">Song Injector</a></li>
 	    <li><a href="https://discord.gg/f759rpu">Discord</a></li>
 	    <li><a href="https://wiki.beatsaver.com">Wiki</a></li>
-            <?php if(!empty($_SESSION["userdb"][0]["id"])){?><li><a href="upload.php">Upload a BeatTrack</a></li><?php } ?>
+	    <li><a href="https://github.com/andruzzzhka/BeatSaverDownloader/releases">In-Game Browser Plugin</a></li>
+            <?php if(!empty($_SESSION["userdb"][0]["id"])){?><li><a href="upload.php">Upload</a></li><?php } ?>
             <?php if(empty($_SESSION["userdb"][0]["id"])){?><li><a href="login.php">Login / Register</a></li><?php } ?>
             <?php if(!empty($_SESSION["userdb"][0]["id"])){?><li><a href="profile.php"><?php echo $_SESSION["userdb"][0]["username"];?></a></li><?php } ?>
 	   <?php if(!empty($_SESSION["userdb"][0]["id"])){?><li><a href="logout.php">Logout</a></li><?php } ?>
