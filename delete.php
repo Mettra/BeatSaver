@@ -1,7 +1,12 @@
 <?php
 $requirelogin = true;
 require("config.php");
-$offset = (int) $_GET["off"];
+
+require 'vendor/autoload.php';
+use Elasticsearch\ClientBuilder;
+
+$client = ClientBuilder::create()->build();
+
 $bt = $database->select("beats", [
         "id",
         "beatname",
@@ -27,5 +32,13 @@ $database->delete("votes", [ "beatid" => $_GET['id'] ]);
 $database->delete("diffmap", [ "beatid" => $_GET['id'] ]);
 unlink("files/".$bt[0]["id"].".zip");
 unlink("img/".$bt[0]["id"].'.'.$bt[0]["img"]);
+$params = [
+    'index' => 'beats',
+    'type' => 'beats',
+    'id' => $bt[0]["id"]
+];
+$response = $client->delete($params);
+
+
 }
 header("Location: profile.php");

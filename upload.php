@@ -1,6 +1,11 @@
 <?php
 $requirelogin = true;
+require 'vendor/autoload.php';
 require("config.php");
+use Elasticsearch\ClientBuilder;
+
+$client = ClientBuilder::create()->build();
+
 $pagetitle = "BeatSaver - Upload Beat Track";
 
 //$url = '/(http|https|ftp|ftps)\:\/\/[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(\/\S*)?/';
@@ -144,6 +149,26 @@ $database->insert("diffmap", [
 	"diffmeta" => $json["difficultyLevels"]
 ]);
 
+$params = [
+    'index' => 'beats',
+    'type' => 'beats',
+    'id' => $uid,
+    'body' => [
+        "beatname" => "$beattitle",
+        "beattext" => nl2br("$beatdesc"),
+        "uploadtime" => time(),
+        "ownerid" => $_SESSION["userdb"][0]["id"],
+        "songName" => gg_filter($json["songName"]),
+        "songSubName" => gg_filter($json["songSubName"]),
+        "authorName" => gg_filter($json["authorName"]),
+        "beatsPerMinute" => $json["beatsPerMinute"],
+        "difficultyLevels" => $json["difficultyLevels"],
+        "img"   => $imageFileType
+]
+];
+
+$response = $client->index($params);
+
 $target_file = "files/" . $uid . ".zip";
 if (move_uploaded_file($_FILES["fileupload"]["tmp_name"], $target_file)) {
 	file_put_contents("img/$uid.".$imageFileType, $imgdata);
@@ -167,7 +192,7 @@ body {
 }
 
 .form-signin {
-  max-width: 530px;
+  max-width: 730px;
   padding: 15px;
   margin: 0 auto;
 }
@@ -219,6 +244,7 @@ body {
 <li>Must contain vaild metadata and album art</li>
 <li>Make sure you have permission to use any content involved in your beatmap. This includes songs, videos, hit sounds, graphics, and any other content that isn't your own creation.</li>
 <li>Do not plagiarise or attempt to steal the work of others. Do not also upload or use other people's work without their explicit permission (including, but not limited to, skins and guest difficulties).</li>
+<li>Protip: Check out these <a href="https://www.youtube.com/playlist?list=PLYeZR6d3zDPgDgWogOwMteL-5SQWAE14b">great videos by Freeek</a> about how to make a good beat track
 </ul>
 </p>
   </div>

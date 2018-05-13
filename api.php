@@ -82,6 +82,32 @@ echo json_encode($bt, JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_HEX_AM
 }
 
 
+if(@$_GET['mode'] == 'details'){
+if(empty($_GET['id'])){die("Empty ID");}
+$bt = qcache($database, "detailsapi-".$_GET['id'], "beats", [
+        "id",
+        "beatname",
+        "ownerid",
+        "downloads",
+        "upvotes",
+        "beattext",
+        "uploadtime",
+        "songName",
+        "songSubName",
+        "authorName",
+        "beatsPerMinute",
+        "difficultyLevels",
+        "img"
+], [
+        "id" => (int) $_GET["id"]
+]);
+foreach($bt as $key => $row){
+$bt[$key]["difficultyLevels"] = json_decode($bt[$key]["difficultyLevels"]);
+}
+echo json_encode($bt, JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_HEX_AMP | JSON_PRETTY_PRINT);
+}
+
+
 if(@$_GET['mode'] == 'hashinfo'){
 if(empty($_GET["hash"])){die("NO HASH PROVIDED");}
 if(strlen($_GET["hash"]) != 32){die("NO HASH PROVIDED");}
@@ -144,5 +170,38 @@ echo json_encode($token);
 die();
 }
 }
+}
+
+
+if(@$_GET['mode'] == 'usersongs'){
+if(empty($_GET['id'])){die("Empty ID");}
+$bt = qcache($database, "usersongsapi-".$_GET['id'], "beats", [
+        "id",
+        "beatname",
+        "ownerid",
+        "downloads",
+        "upvotes",
+        "beattext",
+        "uploadtime",
+        "songName",
+        "songSubName",
+        "authorName",
+        "beatsPerMinute",
+        "difficultyLevels",
+        "img"
+], [
+        "ownerid" => (int) $_GET["id"]
+]);
+foreach($bt as $key => $row){
+$bt[$key]["difficultyLevels"] = json_decode($bt[$key]["difficultyLevels"]);
+}
+echo json_encode($bt, JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_HEX_AMP | JSON_PRETTY_PRINT);
+}
+
+
+if(@$_GET['mode'] == 'session'){
+$user["username"] = @$_SESSION["userdb"][0]["username"];
+$user["id"] = @$_SESSION["userdb"][0]["id"];
+echo json_encode($user, JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_HEX_AMP | JSON_PRETTY_PRINT);
 }
 

@@ -13,8 +13,11 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
 
 <!-- Latest compiled and minified JavaScript -->
+<script
+  src="https://code.jquery.com/jquery-3.3.1.min.js"
+  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+  crossorigin="anonymous"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <title><?php echo $pagetitle; ?></title>
   </head>
   <body>
@@ -23,7 +26,7 @@
     <nav class="navbar navbar-inverse navbar-fixed-top">
       <div class="container">
         <div class="navbar-header">
-          <a class="navbar-brand" href="index.php">Beat Saver</a>
+          <a class="navbar-brand" href="index.php"><img src="Beat_Saver_Logo_White.png" height="35em" style="margin-top: -7px;"></a>
         </div>
         <div id="navbar" class="navbar-collapse collapse">
           <ul class="nav navbar-nav">
@@ -33,11 +36,11 @@
             <li><a href="browse.php">Newest</a></li>
 	    <li><a href="https://discord.gg/f759rpu">Discord</a></li>
 	    <li><a href="https://wiki.beatsaver.com">Wiki</a></li>
-	    <li><a href="https://github.com/andruzzzhka/BeatSaverDownloader/releases">In-Game Browser Plugin</a></li>
+	    <li><a href="https://scoresaber.com/">ScoreSaber</a></li>
+	    <li><a href="https://github.com/JRWR/BeatSaberModManager/releases">Mod Installer + Updater</a></li>
             <?php if(!empty($_SESSION["userdb"][0]["id"])){?><li><a href="upload.php">Upload</a></li><?php } ?>
             <?php if(empty($_SESSION["userdb"][0]["id"])){?><li><a href="login.php">Login / Register</a></li><?php } ?>
             <?php if(!empty($_SESSION["userdb"][0]["id"])){?><li><a href="profile.php"><?php echo $_SESSION["userdb"][0]["username"];?></a></li><?php } ?>
-	   <?php if(!empty($_SESSION["userdb"][0]["id"])){?><li><a href="logout.php">Logout</a></li><?php } ?>
           </ul>
         </div>
       </div>
