@@ -154,6 +154,7 @@ $params = [
     'type' => 'beats',
     'id' => $uid,
     'body' => [
+	"id"	=> $uid,
         "beatname" => "$beattitle",
         "beattext" => nl2br("$beatdesc"),
         "uploadtime" => time(),
@@ -162,7 +163,7 @@ $params = [
         "songSubName" => gg_filter($json["songSubName"]),
         "authorName" => gg_filter($json["authorName"]),
         "beatsPerMinute" => $json["beatsPerMinute"],
-        "difficultyLevels" => $json["difficultyLevels"],
+        "difficultyLevels" => json_encode($json["difficultyLevels"]),
         "img"   => $imageFileType
 ]
 ];

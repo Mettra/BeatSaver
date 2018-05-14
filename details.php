@@ -19,6 +19,7 @@ $bt = qcache($database, "details".$_GET["id"], "beats", [
 ]);
 $pagetitle = "Beat Saver - " . $bt[0]["beatname"];
 require("header.php");
+if(empty($bt[0]["beatname"])){die("<br><br><br><br><br><br><br><br><center><h1>Song Not Found</h1></center>");}
 ?>
     <div class="container">
       <div class="row">

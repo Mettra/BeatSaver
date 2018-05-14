@@ -31,7 +31,7 @@ require 'header.php';
 <?php
 $i = 0;
 ?>
-
+<br><br>
 <form class="navbar-form navbar-left" role="search">
   <div class="form-group">
     <input type="text" name="q" class="form-control" placeholder="Search">
