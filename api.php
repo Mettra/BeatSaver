@@ -11,7 +11,7 @@ $bt = qcache($database, "topdlapi".$offset, "beats", [
         "beatname",
         "ownerid",
         "downloads",
-        "upvotes",
+        "upvotes", "plays",
         "beattext",
         "uploadtime",
         "songName",
@@ -36,7 +36,7 @@ $bt = qcache($database, "newapi".$offset, "beats", [
         "beatname",
         "ownerid",
         "downloads",
-        "upvotes",
+        "upvotes", "plays",
         "beattext",
         "uploadtime",
         "songName",
@@ -62,7 +62,7 @@ $bt = qcache($database, "starapi".$offset, "beats", [
         "beatname",
         "ownerid",
         "downloads",
-        "upvotes",
+        "upvotes", "plays",
         "beattext",
         "uploadtime",
         "songName",
@@ -81,6 +81,32 @@ $bt[$key]["difficultyLevels"] = json_decode($bt[$key]["difficultyLevels"]);
 echo json_encode($bt, JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_HEX_AMP | JSON_PRETTY_PRINT);
 }
 
+if(@$_GET['mode'] == 'plays'){
+$bt = qcache($database, "playedapi".$offset, "beats", [
+        "id",
+        "beatname",
+        "ownerid",
+        "downloads",
+        "upvotes", "plays",
+        "beattext",
+        "uploadtime",
+        "songName",
+        "songSubName",
+        "authorName",
+        "beatsPerMinute",
+        "difficultyLevels",
+        "img"
+], [
+        'LIMIT' => [$offset, 15],
+        "ORDER" => ["plays" => "DESC",]
+]);
+foreach($bt as $key => $row){
+$bt[$key]["difficultyLevels"] = json_decode($bt[$key]["difficultyLevels"]);
+}
+echo json_encode($bt, JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_HEX_AMP | JSON_PRETTY_PRINT);
+}
+
+
 
 if(@$_GET['mode'] == 'details'){
 if(empty($_GET['id'])){die("Empty ID");}
@@ -89,7 +115,7 @@ $bt = qcache($database, "detailsapi-".$_GET['id'], "beats", [
         "beatname",
         "ownerid",
         "downloads",
-        "upvotes",
+        "upvotes", "plays",
         "beattext",
         "uploadtime",
         "songName",
@@ -125,7 +151,7 @@ $bt = qcache($database, "diffmapapiinfo-".$bt2[0]["beatid"], "beats", [
         "beatname",
         "ownerid",
         "downloads",
-        "upvotes",
+        "upvotes", "plays",
         "beattext",
         "uploadtime",
         "songName",
@@ -180,7 +206,7 @@ $bt = qcache($database, "usersongsapi-".$_GET['id'], "beats", [
         "beatname",
         "ownerid",
         "downloads",
-        "upvotes",
+        "upvotes", "plays",
         "beattext",
         "uploadtime",
         "songName",
@@ -203,5 +229,23 @@ if(@$_GET['mode'] == 'session'){
 $user["username"] = @$_SESSION["userdb"][0]["username"];
 $user["id"] = @$_SESSION["userdb"][0]["id"];
 echo json_encode($user, JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_HEX_AMP | JSON_PRETTY_PRINT);
+}
+
+if(@$_GET['mode'] == 'updateplay'){
+if($_GET['token'] !== $playtoken){die('Invaild ID');}
+$diffmap = $database->select("diffmap", [
+        "beatid"
+],[
+	"hash"	=> strtolower($_GET['levelid'])
+]);
+
+$findlvl = $database->update("beats", [
+        "plays[+]" => $_GET['count']
+], [
+        "id" => $diffmap[0]["beatid"]
+]);
+var_dump($diffmap);
+var_dump($findlvl);
+
 }
 

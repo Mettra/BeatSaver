@@ -9,6 +9,7 @@ $bt = qcache($database, "topstar".$offset, "beats", [
         "downloads",
         "upvotes",
         "beattext",
+	"plays",
         "uploadtime",
         "songName",
         "songSubName",
@@ -18,10 +19,10 @@ $bt = qcache($database, "topstar".$offset, "beats", [
         "img"
 ], [
         'LIMIT' => [$offset, 15],
-        "ORDER" => ["upvotes" => "DESC",]
+        "ORDER" => ["plays" => "DESC",]
 ]);
 
-$pagetitle = "Beat Saver - Top Rated";
+$pagetitle = "Beat Saver - Top Played";
 require("header.php");
 ?>
     <div class="container">
@@ -47,7 +48,7 @@ if(!empty($brow['id'])){ ?>
     <td><?php echo substr($brow["beattext"], 0, 100); ?> ...</td>
   </tr>
   <tr>
-    <td>Downloads: <?php echo number_format($brow["downloads"]);?>
+    <td>Downloads: <?php echo number_format($brow["downloads"]);?> || Finished: <?php echo number_format($brow["plays"]);?>
 <br>
 <?php if(!empty($_SESSION["userdb"][0]["id"])){?><a href="vote.php?id=<?php echo $brow["id"];?>" class="pull-right"><?php } ?>
 <button type="button" class="btn btn-default">

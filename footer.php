@@ -1,5 +1,5 @@
      <footer>
-<center>        <p><b><a href="dmca.php">DMCA Copyright Form</a> || <a href="https://dev.beatsaver.com/index.html#/">New Alpha Interface</a></b></p></center>
+<center>        <p><b><a href="dmca.php">DMCA Copyright Form</a> || <a href="https://dev.beatsaver.com/index.html#/">New Alpha Interface</a> || <a href="https://github.com/jrwr/beatsaver">Github</a></b></p></center>
       </footer>
     </div> <!-- /container -->
 <script type="text/javascript">

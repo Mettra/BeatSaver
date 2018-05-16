@@ -32,12 +32,13 @@
           <ul class="nav navbar-nav">
             <li class="active"><a href="index.php">Home</a></li>
             <li><a href="topdl.php">Top Downloads</a></li>
-	    <li><a href="topstar.php">Top Rated</a></li>
+	    <li><a href="topstar.php">Top Played</a></li>
             <li><a href="browse.php">Newest</a></li>
 	    <li><a href="https://discord.gg/f759rpu">Discord</a></li>
 	    <li><a href="searchhtml.php">Search</a></li>
 	    <li><a href="https://scoresaber.com/">ScoreSaber</a></li>
-	    <li><a href="https://github.com/JRWR/BeatSaberModManager/releases">Mod Installer + Updater</a></li>
+	    <li><a href="https://wiki.beatsaver.com/">Wiki</a></li>
+	    <li><a href="https://github.com/Umbranoxio/BeatSaberModInstaller/releases">Mod Installer</a></li>
             <?php if(!empty($_SESSION["userdb"][0]["id"])){?><li><a href="upload.php">Upload</a></li><?php } ?>
             <?php if(empty($_SESSION["userdb"][0]["id"])){?><li><a href="login.php">Login / Register</a></li><?php } ?>
             <?php if(!empty($_SESSION["userdb"][0]["id"])){?><li><a href="profile.php"><?php echo $_SESSION["userdb"][0]["username"];?></a></li><?php } ?>

@@ -6,6 +6,7 @@ $bt = qcache($database, "details".$_GET["id"], "beats", [
 	"ownerid",
 	"downloads",
 	"upvotes",
+	"plays",
 	"beattext",
 	"uploadtime",
 	"songName",
@@ -39,7 +40,7 @@ if(empty($bt[0]["beatname"])){die("<br><br><br><br><br><br><br><br><center><h1>S
     <td><?php echo $bt[0]["beattext"]; ?></td>
   </tr>
   <tr>
-    <td>Downloads: <?php echo number_format($bt[0]["downloads"]);?>
+    <td>Downloads: <?php echo number_format($bt[0]["downloads"]);?> || Finished: <?php echo number_format($bt[0]["plays"]);?>
 <br>
 <?php if(!empty($_SESSION["userdb"][0]["id"])){?><a href="vote.php?id=<?php echo $bt[0]["id"];?>"><?php } ?>
 <button type="button" class="btn btn-default">

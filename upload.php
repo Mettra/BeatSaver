@@ -62,10 +62,12 @@ foreach($json["difficultyLevels"] as $lvlkey => $lvl){
 $zip = zip_open($_FILES["fileupload"]["tmp_name"]);
 if ($zip) {
     while ($zip_entry = zip_read($zip)) {
-        if(strpos(strtolower(zip_entry_name($zip_entry)), strtolower($lvl["jsonPath"])) > 3){
+        $path_parts = pathinfo(zip_entry_name($zip_entry));
+        if(strtolower($path_parts['basename']) == strtolower($lvl["jsonPath"])){
         if (zip_entry_open($zip, $zip_entry, "r")) {
-             $lvldata = preg_replace('/[\x00-\x1F\x80-\xFF]/', '', zip_entry_read($zip_entry, zip_entry_filesize($zip_entry)));
+             $lvldata = zip_entry_read($zip_entry, zip_entry_filesize($zip_entry));
 	     $rawlvldata .= $lvldata;
+	     $lvldata = preg_replace('/[\x00-\x1F\x80-\xFF]/', '', $lvldata);
 
 
 unset($diffnotes); unset($notetime); unset($notetype); unset($stats);
